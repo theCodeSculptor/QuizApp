@@ -1,27 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>NBA Knowledge Quiz</title>
-    <link href="main.css" rel="stylesheet" type="text/css"/>
-   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>  
-  </head>
-  <body>
-   <div class="questionCounter">
-     <ul>
-      <li>Question: <span class="questionNumber">0</span>/10</li>
-      <li>Score: <span class="score">0</span></li>
-     </ul>
-    </div>   
-   <main role="main">
-   <section class="quizStartPage">
-    <h1>Test your NBA knowledge now!</h1>
-    <button type="button" class="startButton">Start Quiz</button>
-    </section>
-    <section class="questionAnswerForm"></section>
-    </main>   
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-  <script src="index.js"></script>
-  </body>
-</html>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: url('https://www.azfamouswings.com/wp-content/uploads/2019/05/2019-NBA-Playoffs-1.jpg') fixed;
+  background-size: cover;
+}
+
+header {width: 100%;
+    margin-top: 25px;
+    color: #ffffff;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.logo {
+    height: 60px;
+    width: 60px;
+}
+
+header ul li  {
+    list-style:none;
+    font-size: 18px;
+    color:#d6d6d8;
+    text-align: center;
+    position: relative;
+    right:10px;
+    padding:5px; 
+    display: inline;
+  }
+
+h1 {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+    font-size: 2em;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+button {
+    padding: 20px;
+    border: none;
+    background-color: rgb(241, 141, 75);
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+}
+
+button:hover {
+  cursor: pointer;
+  color: #434144;
+}
+
+.quizStartPage {
+    text-align:center;
+    display:block;
+  }
+
+@media screen and (max-width: 768px) {
+    .logo {
+        width: 50px;
+        height: 50px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    header ul {
+        margin: 10px;
+        text-align: center
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    header ul li {
+        padding: 10px;
+        font-size: 18px
+    }
+}
