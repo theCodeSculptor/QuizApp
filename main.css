@@ -165,4 +165,14 @@ fieldset {
     .submitButton {
         margin-top: 20px; 
     }
+  p {
+      font-size: 25px;
+    }
+    h3 {
+      font-size: 28px;
+      margin-top: 50px;
+    }
+    .restartButton{
+      margin-top: 60px;
+    }
 }
