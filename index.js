@@ -27,7 +27,7 @@ const STORE = [
         '69',
         '63'
       ],
-      correctAnswer: '3-6'
+      correctAnswer: '69'
     },
     {
       question:'Who got the highest score in a single game during NBA History?',
@@ -99,15 +99,141 @@ const STORE = [
       ],
       correctAnswer: 'Boston Celtics'
     },
+]
 
-function generateQuestion () {
-
-}
+let questionNumber= 0;
+let score= 0;
 
 function startQuiz () {
+  $('.quizStartPage').on('click','.startButton', function(event) {
+      $('.quizStartPage').remove();
+      $('.questionAnswerForm').css('display','block');
+      $('.questionNumber').text(1);
+    });
+}
 
+function generateQuestion () {
+  if (questionNumber < STORE.length) {
+      return `<div class="question-${questionNumber}">
+      <h2>${STORE[questionNumber].question}
+      </h2>
+      <form>
+      <fieldset>
+      <label class="answerChoice">
+      <input type="radio" name="answer" value= "${STORE[questionNumber].answers[0]}" required>
+      <span>${STORE[questionNumber].answers[0]}</span>
+      </label>
+      <label class="answerChoice">
+      <input type="radio" name="answer" value= "${STORE[questionNumber].answers[1]}" required>
+      <span>${STORE[questionNumber].answers[1]}</span>
+      </label>
+      <label class="answerChoice">
+      <input type="radio" name="answer" value= "${STORE[questionNumber].answers[2]}" required>
+      <span>${STORE[questionNumber].answers[2]}</span>
+      </label>
+      <label class="answerChoice">
+      <input type="radio" name="answer" value= "${STORE[questionNumber].answers[3]}" required>
+      <span>${STORE[questionNumber].answers[3]}</span>
+      </label>
+      <button type="submit" class="submitButton">Submit</button>
+      </fieldset>
+      </form>
+      </div>`;
+      } else {
+       renderResults();
+       restartQuiz();
+       $('.questionNumber').text(10)
+      }
+}
+
+function changeQuestion() {
+    questionNumber ++;
+    $('.questionNumber').text(questionNumber+1);
+  }
+
+function changeScore () {
+  score ++;
 }
 
 function renderQuestion () {
-  
+   $('.questionAnswerForm').html(generateQuestion());
 }
+
+function chooseAnswer() {
+    $('form').on('submit', function(event) {
+      event.preventDefault();
+      let chosen= $('input:checked');
+      let answer= chosen.val();
+      let correctAnswer= `${STORE[questionNumber].correctAnswer}`;
+      if (answer === correctAnswer) {
+      chosen.parent().addClass('correct');
+      ifAnswerIsRight();
+      } 
+      else {
+      chosen.parent().addClass('wrong');
+      ifAnswerIsWrong();
+      }
+      }); 
+}
+
+function ifAnswerIsRight(){
+    giveRightAnswerFeedback();
+    updateScore();
+}
+
+function ifAnswerIsWrong() {
+   giveWrongAnswerFeedback();
+}
+
+function giveRightAnswerFeedback() {
+   let correctAnswer= `${STORE[questionNumber].correctAnswer}`;
+   $('.questionAnswerForm').html(`<div class="correctFeedback">
+   <p>You answer is right!</p>
+   <button type=button class="nextButton">Next</button></div>`);
+}
+
+function giveWrongAnswerFeedback () {
+    let correctAnswer= `${STORE[questionNumber].correctAnswer}`;
+    $('.questionAnswerForm').html(`<div class="wrongFeedback">
+    <p>You answer is wrong<br>The correct answer is <span>"${correctAnswer}"</span></p>
+    <button type=button class="nextButton">Next</button></div>`);
+}
+
+function updateScore () {
+   changeScore();
+   $('.score').text(score);
+}
+
+function renderNextQuestion() {
+   $('main').on('click', '.nextButton', function(event) {
+     changeQuestion();
+     renderQuestion();
+     chooseAnswer();
+   });
+}
+
+function renderResults() {
+    if(score>=9) {
+      $('.questionAnswerForm').html(`<div class="finalResults"><h3>You Are On Fire!</h3><p>Score: ${score} / 10</p><p>You are a diehard fan of NBA!</p><button type="button" class="restartButton">Retake Quiz</button></div>`);
+    } else if(score<9 && score>=5) {
+      $('.questionAnswerForm').html(`<div class="finalResults"><h3>Well done！</h3><p>Score: ${score} / 10</p><p>You seems like this game.</p><button type="button" class="restartButton">Retake Quiz</button></div>`);
+    } else {
+      $('.questionAnswerForm').html(`<div class="finalResults"><h3>Well......</h3><p>Score: ${score} / 10</p><p>Is that you, John Snow?</p><button type="button" class="restartButton">Retake Quiz</button></div>`);
+      }
+}
+
+function restartQuiz() {
+   $('main').on('click', '.restartButton', function(event) {
+    location.reload();
+   });
+}
+
+function runQuiz() {
+   startQuiz();
+   renderQuestion();
+   chooseAnswer();
+   renderNextQuestion();
+}
+  
+$(runQuiz);
+
