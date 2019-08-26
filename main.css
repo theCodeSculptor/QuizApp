@@ -162,4 +162,7 @@ fieldset {
     h2 {
         font-size: 22px;
     }
+    .submitButton {
+        margin-top: 20px; 
+    }
 }
